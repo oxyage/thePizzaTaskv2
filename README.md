@@ -1,4 +1,4 @@
-#The Pizza task
+#THE PIZZA TASK
 
 Here is only backend
 
@@ -8,7 +8,7 @@ Copy or download this reposithory
 
 **Fix configuration environment**
 
-Create configuration file `.env}`
+Create configuration file `.env`
 
     cp .env.example .env
 
@@ -23,4 +23,5 @@ Change following strings
 
 
 **Go to migrations**
+
     php artisan migrate
