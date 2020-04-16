@@ -1,4 +1,4 @@
-#THE PIZZA TASK
+# THE PIZZA TASK
 
 Here is only backend
 
@@ -25,3 +25,6 @@ Change following strings
 **Go to migrations**
 
     php artisan migrate
+	
+	
+	
