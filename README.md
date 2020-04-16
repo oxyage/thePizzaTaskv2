@@ -15,11 +15,11 @@ Create configuration file `.env`
 Change following strings
 
     DB_CONNECTION=mysql
-    DB_HOST=remotemysql.com  -- set here your local mysql server
+    DB_HOST=localhost  -- set here your local mysql server
     DB_PORT=3306			-- set port local server
-    DB_DATABASE=P2nDp9CQMQ	-- (at first create new database) 
-    DB_USERNAME=P2nDp9CQMQ	-- user name to mysql
-    DB_PASSWORD=R9cfAmnMqe	-- user password to mysql
+    DB_DATABASE=pizzas_db	-- (at first create new database) 
+    DB_USERNAME=username	-- user name to mysql
+    DB_PASSWORD=userpass	-- user password to mysql
 
 
 **Go to migrations**
