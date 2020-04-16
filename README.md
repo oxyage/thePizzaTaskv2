@@ -26,5 +26,11 @@ Change following strings
 
     php artisan migrate
 	
+**Fill database sample pizzas**
+
+	php artisan db:seed --class=PizzasSeeder
+	
+
+	
 	
 	

@@ -8,16 +8,19 @@ class Pizza extends Model
 {
     //
 	protected $fillable = [
-						'title', 
+						'title',
 						'description',
 						'images',
 						'cost',
 						'weight'
 						];
-						
+
+
+    public $timestamps = false;
+
 	public function getPizzasByCost($min, $max)
 	{
-		
+
 	}
-						
+
 }

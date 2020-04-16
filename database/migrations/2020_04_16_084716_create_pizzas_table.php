@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Pizza;
+
 class CreatePizzasTable extends Migration
 {
     /**
@@ -18,9 +20,8 @@ class CreatePizzasTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->json('images'); //json_array
-            $table->integer('cost'); //dollars
-            $table->integer('weight');
-            //$table->timestamps();
+            $table->float('cost'); //dollars
+            $table->float('weight');
         });
     }
 
