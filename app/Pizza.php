@@ -14,4 +14,10 @@ class Pizza extends Model
 						'cost',
 						'weight'
 						];
+						
+	public function getPizzasByCost($min, $max)
+	{
+		
+	}
+						
 }
