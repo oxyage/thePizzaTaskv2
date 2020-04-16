@@ -17,8 +17,8 @@ class CreatePizzasTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->json('images');
-            $table->integer('cost');
+            $table->json('images'); //json_array
+            $table->integer('cost'); //dollars
             $table->integer('weight');
             //$table->timestamps();
         });
