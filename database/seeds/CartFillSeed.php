@@ -21,11 +21,16 @@ class CartFillSeed extends Seeder
             ["customer_id" =>  2, "pizza_id" =>5, "count"=>4],
             ["customer_id" =>  2, "pizza_id" =>6, "count"=>3],
             ["customer_id" =>  2, "pizza_id" =>7, "count"=>2],
+
             ["customer_id" =>  3, "pizza_id" =>8, "count"=>1],
             ["customer_id" =>  3, "pizza_id" =>2, "count"=>4],
+
             ["customer_id" =>  4, "pizza_id" =>5, "count"=>6],
+
             ["customer_id" =>  9, "pizza_id" =>7, "count"=>3],
+
             ["customer_id" =>  12, "pizza_id" =>9, "count"=>11],
+
             ["customer_id" =>  147, "pizza_id" =>10, "count"=>22],
 
         ];
