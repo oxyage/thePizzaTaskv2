@@ -12,11 +12,16 @@ class PizzaController extends Controller
 	{
 		//not necessary
 	}
-	
-	public function show(Request $request = null)
+
+	public function index()
 	{
-		//if(!$request) return Pizza::all()
-		//else return Pizza::where('cost', '>', 5) 
+	    return Pizza::all();
 	}
-	
+
+	public function show($id)
+    {
+        return Pizza::find($id);
+    }
+
+
 }
