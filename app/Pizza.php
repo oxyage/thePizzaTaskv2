@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static where(string $string, string $string1, int $min)
+ */
 class Pizza extends Model
 {
     //
@@ -17,10 +20,4 @@ class Pizza extends Model
 
 
     public $timestamps = false;
-
-	public function getPizzasByCost($min, $max)
-	{
-
-	}
-
 }
