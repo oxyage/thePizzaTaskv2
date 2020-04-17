@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,5 +24,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/pizzas', "PizzaController@index");
 Route::get('/pizza/{id}', "PizzaController@show");
 
+
+Route::get('/cart', function(){
+    return new Response('Invalid `customer_id`', 403);
+});
+
+
+Route::post('/cart', "CartController@add");
+Route::delete('/cart/{customer_id}/id/{id}', "CartController@remove");
+
+Route::get('/cart/{customer_id}', "CartController@show");
+Route::delete('/cart/{customer_id}', "CartController@clear");
+/*Route::put('/cart', "CartController@edit");*/
+
+
+
+
+#Route::post('/cart', "CartController@add");
 
 
