@@ -18,7 +18,9 @@ class CreateOrdersTable extends Migration
             $table->integer('order_id'); //from cart
             $table->integer('customer_id');
             $table->integer('pizza_id');
-            $table->integer('count');			
+            $table->integer('count');
+            $table->string('delivery');
+            $table->string('contacts');
             $table->timestamps();
         });
     }
