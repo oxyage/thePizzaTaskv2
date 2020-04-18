@@ -12,7 +12,7 @@ class Order extends Model
                             'pizza_id',
                             'count',
                             'delivery',
-                            'contact'];
+                            'contacts'];
 
 	public function getOrderById($order_id)
 	{
