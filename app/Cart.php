@@ -2,6 +2,7 @@
 
 namespace App;
 
+
 use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
@@ -14,23 +15,45 @@ class Cart extends Model
         return Cart::all()->where('customer_id', $customer_id);
     }
 
-	public function addToCart()
+	public static function addToCart($customer_id, $pizza_id, $count)
 	{
-
-	    //return sum and numbers
+        return Cart::create(['pizza_id'=> $pizza_id,
+            'count'=> $count,
+            'customer_id'=> $customer_id]);
 	}
 
-	public static function removeFromCart($customer_id, $id)
+	public static function edit($customer_id, $pizza_id, $count)
+    {
+        $find = Cart::all()->where('customer_id', $customer_id)
+            ->where('pizza_id', $pizza_id);
+
+        if($find->count() > 0)
+        {
+            return Cart::where('customer_id', $customer_id)
+                ->where('pizza_id', $pizza_id)
+                ->update(['count'=>  $count]);
+
+        }
+        else
+            return Cart::addToCart($customer_id, $pizza_id, $count);
+
+
+    }
+
+
+	public static function removeFromCart($customer_id, $pizza_id)
 	{
-        $position = Cart::where('customer_id', $customer_id)
-            ->where('id', $id);
-        $position->delete();
+     return Cart::where('customer_id', $customer_id)
+            ->where('pizza_id', $pizza_id)
+            ->delete();
+
 
 	}
 
-	public function editInCart()
-	{
+    //пригодится после сделанного заказа очистить корзину
+    public static function clear($customer_id)
+    {
+        return Cart::where('customer_id', $customer_id)->delete();
+    }
 
-        //return sum and numbers
-	}
 }

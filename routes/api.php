@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
@@ -29,21 +29,24 @@ Route::get('/pizza', function(){
 });
 
 // Cart
-Route::get('/cart', function(){
-    return new Response('Invalid `customer_id`', 403);
+Route::any('/cart', function(){
+    return new Response('', 400);
 });
 Route::get('/cart/{customer_id}', "CartController@show");
-Route::post('/cart', "CartController@add");
-Route::delete('/cart/{customer_id}/id/{id}', "CartController@remove");
-Route::delete('/cart/{customer_id}', "CartController@clear");
+//Route::post('/cart/{customer_id}', "CartController@add");
+Route::put('/cart/{customer_id}', "CartController@edit");
+Route::delete('/cart/{customer_id}', "CartController@clear"); //clear cart
+
+
+
 
 //Order
 Route::get('/order', function(){
     return new Response('Invalid `customer_id`', 403);
 });
 Route::get('/order/{customer_id}', "OrderController@history");
-Route::post('/order/{customer_id}', "OrderController@take");
-
+Route::post('/order/{customer_id}', "OrderController@edit");
+Route::delete('/cart/{customer_id}', "CartController@clear");
 
 
 
