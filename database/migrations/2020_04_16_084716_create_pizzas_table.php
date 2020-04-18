@@ -20,7 +20,7 @@ class CreatePizzasTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->longText('images');
-            $table->float('cost'); //dollars
+            $table->float('cost');
             $table->float('weight');
         });
     }
