@@ -8,11 +8,13 @@ class Order extends Model
 {
     //
 	protected $fillable = ['customer_id',
-                            'order_id',
-                            'pizza_id',
-                            'count',
+                            'order_content',
                             'delivery',
                             'contacts'];
+
+
+	//public static function
+
 
 	public function getOrderById($order_id)
 	{

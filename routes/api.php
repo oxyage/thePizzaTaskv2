@@ -44,9 +44,10 @@ Route::delete('/cart/{customer_id}', "CartController@clear"); //clear cart
 Route::get('/order', function(){
     return new Response('Invalid `customer_id`', 403);
 });
-Route::get('/order/{customer_id}', "OrderController@history");
-Route::post('/order/{customer_id}', "OrderController@edit");
-Route::delete('/cart/{customer_id}', "CartController@clear");
+
+Route::get('/orders/{customer_id}', "OrderController@getAllOrders"); //посмотреть все заказы
+Route::get('/order/{customer_id}/{order_id}', "OrderController@getOrder"); //посмотреть один заказ
+Route::post('/order/{customer_id}', "OrderController@make"); //сформировать заказ из корзины
 
 
 
