@@ -21,25 +21,30 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
+// Pizza
 Route::get('/pizzas', "PizzaController@index");
 Route::get('/pizza/{id}', "PizzaController@show");
+Route::get('/pizza', function(){
+    return new Response('Invalid `pizza_id`', 403);
+});
 
-
+// Cart
 Route::get('/cart', function(){
     return new Response('Invalid `customer_id`', 403);
 });
-
-
+Route::get('/cart/{customer_id}', "CartController@show");
 Route::post('/cart', "CartController@add");
 Route::delete('/cart/{customer_id}/id/{id}', "CartController@remove");
-
-Route::get('/cart/{customer_id}', "CartController@show");
 Route::delete('/cart/{customer_id}', "CartController@clear");
-/*Route::put('/cart', "CartController@edit");*/
+
+//Order
+Route::get('/order', function(){
+    return new Response('Invalid `customer_id`', 403);
+});
+Route::get('/order/{customer_id}', "OrderController@history");
+Route::post('/order/{customer_id}', "OrderController@take");
 
 
 
-
-#Route::post('/cart', "CartController@add");
 
 
