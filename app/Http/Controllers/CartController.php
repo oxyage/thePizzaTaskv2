@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use Illuminate\Http\Response;
 use App\Cart;
+use App\Order;
+
 
 class CartController extends Controller
 {
@@ -30,7 +32,11 @@ class CartController extends Controller
 
 	public function show($customer_id)
 	{
-        return Cart::show($customer_id);
+	    $customer_cart = OrderController::getPizzasByCustomerCart($customer_id);
+        $summary = OrderController::getCostAndWeightByOrder($customer_cart);
+
+        return ["summary"=>$summary, "customer_cart"=>$customer_cart];
+                #return Cart::all()->where('customer_id', $customer_id);
 	}
 
     public function clear($customer_id)

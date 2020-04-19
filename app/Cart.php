@@ -12,7 +12,8 @@ class Cart extends Model
 
 	public static function show($customer_id)
     {
-        return Cart::all()->where('customer_id', $customer_id);
+		//todo: исправить, чтобы возвращался массив
+        return Cart::all()->where('customer_id', $customer_id)->all();
     }
 
 	public static function addToCart($customer_id, $pizza_id, $count)

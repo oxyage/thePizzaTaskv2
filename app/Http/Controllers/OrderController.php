@@ -114,7 +114,10 @@ class OrderController extends Controller
 
 	public static function getAllOrders($customer_id)
     {
-        $orders = Order::all()->where('customer_id', $customer_id);
+        $orders = Order::where('customer_id', $customer_id)->get();
+
+
+
         foreach($orders as $i => $order)
         {
             $orders[$i]['order_content'] = json_decode($order['order_content']);
