@@ -21,6 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
+Route::get('/about', function () {
+    return response('Welcome api home', 200);
+});
+
+
 // Pizza
 Route::get('/pizzas', "PizzaController@index");
 Route::get('/pizza/{id}', "PizzaController@show");
