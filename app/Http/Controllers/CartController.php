@@ -11,6 +11,14 @@ use App\Order;
 class CartController extends Controller
 {
 
+    public function add($customer_id, Request $request)
+    {
+        $current_count = Cart::all()
+            ->where('customer_id',$customer_id)
+            ->where('pizza_id', $request->pizza_id)->count();
+
+        return $current_count;
+    }
 
 	public function edit($customer_id, Request $request)
     {

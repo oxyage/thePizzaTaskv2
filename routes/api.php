@@ -41,7 +41,7 @@ Route::any('/cart', function(){
     return new Response('', 400);
 });
 Route::get('/cart/{customer_id}', "CartController@show");
-//Route::post('/cart/{customer_id}', "CartController@add");
+Route::post('/cart/{customer_id}', "CartController@add");
 Route::put('/cart/{customer_id}', "CartController@edit");
 Route::delete('/cart/{customer_id}', "CartController@clear"); //clear cart
 
