@@ -114,7 +114,7 @@ class OrderController extends Controller
 
 	public static function getAllOrders($customer_id)
     {
-        $orders = Order::where('customer_id', $customer_id)->get();
+        $orders = Order::where('customer_id', $customer_id)->orderBy('id', 'desc')->get();
 
 
 
