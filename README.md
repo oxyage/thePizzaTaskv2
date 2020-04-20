@@ -22,13 +22,10 @@ Change following strings
     DB_PASSWORD=userpass	    -- user password to mysql
 
 
-**Start migrations**
+**Start migrations and fill database**
 
-    php artisan migrate
+    php artisan migrate --seed
 	
-**Fill database samples**
-
-	php artisan db:seed
 	
 # Deploy to Heroku
 

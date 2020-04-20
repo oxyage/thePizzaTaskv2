@@ -13,21 +13,20 @@ class CustomersSeed extends Seeder
     public function run()
     {
         $customers = [
-            ["name" =>  "guest", "password" => "guest"],
-            ["name" =>  "stepan", "password" => "123"],
-            ["name" =>  "anna", "password" => "123"],
-            ["name" =>  "oleg", "password" => "123"],
-            ["name" =>  "yaroslaw", "password" => "123"],
-            ["name" =>  "vladimir", "password" => "123"],
-            ["name" =>  "darya", "password" => "123"],
+            ["name" =>  "guest"],
+            ["name" =>  "stepan"],
+            ["name" =>  "anna"],
+            ["name" =>  "oleg"],
+            ["name" =>  "yaroslaw"],
+            ["name" =>  "vladimir"],
+            ["name" =>  "darya"],
             ];
 
 
         foreach($customers as $customer)
         {
             Customer::create([
-                'name' => $customer['name'],
-                'password' => $customer['password']
+                'name' => $customer['name']
             ]);
         }
     }

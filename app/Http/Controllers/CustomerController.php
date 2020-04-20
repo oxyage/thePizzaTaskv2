@@ -8,11 +8,15 @@ use App\Customer;
 class CustomerController extends Controller
 {
     //
-	public function create(Request $request)
+	public function add(Request $request)
 	{
-		//add user
+		return Customer::create($request->all());
 	}
 
-	
+    protected function all()
+    {
+        return Customer::all();
+    }
+
 
 }

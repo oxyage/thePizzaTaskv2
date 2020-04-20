@@ -25,6 +25,9 @@ Route::get('/about', function () {
     return response('Welcome api home', 200);
 });
 
+Route::get('/customers', "CustomerController@all");
+Route::post('/customer', "CustomerController@add");
+
 
 // Pizza
 Route::get('/pizzas', "PizzaController@index");
