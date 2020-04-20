@@ -13,18 +13,34 @@ class CartController extends Controller
 
     public function add($customer_id, Request $request)
     {
-        $current_count = Cart::all()
+
+        $find_pizza = Cart::all()
             ->where('customer_id',$customer_id)
-            ->where('pizza_id', $request->pizza_id)->first()->count;
+            ->where('pizza_id', $request->pizza_id);
 
-        $current_count += $request->count;
+        if($find_pizza->count() > 0)
+        {
+            $current_count = $find_pizza->first()->count;
 
+            $current_count += $request->count;
 
-
-        if(Cart::edit($customer_id, $request->get('pizza_id'), $current_count))
-            return response('', 202);
+            if(Cart::edit($customer_id, $request->get('pizza_id'), $current_count))
+                return response('', 202);
+            else
+                return response("Invalid data", 400);
+        }
         else
-            return response("Invalid data", 400);
+        {
+            if(Cart::edit($customer_id, $request->get('pizza_id'), 1))
+                return response('', 201);
+            else
+                return response("Invalid data", 400);
+
+
+
+        }
+
+
 
     }
 
