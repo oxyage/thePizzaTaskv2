@@ -15,9 +15,17 @@ class CartController extends Controller
     {
         $current_count = Cart::all()
             ->where('customer_id',$customer_id)
-            ->where('pizza_id', $request->pizza_id)->count();
+            ->where('pizza_id', $request->pizza_id)->first()->count;
 
-        return $current_count;
+        $current_count += $request->count;
+
+
+
+        if(Cart::edit($customer_id, $request->get('pizza_id'), $current_count))
+            return response('', 202);
+        else
+            return response("Invalid data", 400);
+
     }
 
 	public function edit($customer_id, Request $request)
