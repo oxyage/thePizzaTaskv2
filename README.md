@@ -68,3 +68,20 @@ Set Config Vars
 Open project    
     
     heroku open	
+    
+    
+### Available methods:
+
+
+    GET /api/pizzas  -- get All pizzas
+    
+    GET /cart/{customer_id}         -- get customer's cart
+    POST /cart/{customer_id} 
+    PUT /cart/{customer_id}
+    DELETE /cart/{customer_id}      -- clear customer's cart
+    
+    Route::get('/cart/{customer_id}', "CartController@show");
+    Route::post('/cart/{customer_id}', "CartController@add");
+    Route::put('/cart/{customer_id}', "CartController@edit");
+    Route::delete('/cart/{customer_id}', "CartController@clear"); //clear cart
+
