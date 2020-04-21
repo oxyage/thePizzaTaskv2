@@ -57,7 +57,7 @@ class OrderController extends Controller
         {
 
             $all_sum += $position->count * $position->cost;
-            $all_weight += $position->weight;
+            $all_weight += $position->count * $position->weight;
         }
 
         return ["cost"=>$all_sum, "weight"=>$all_weight];
