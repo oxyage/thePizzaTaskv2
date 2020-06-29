@@ -10,19 +10,6 @@ class Order extends Model
 	protected $fillable = ['customer_id',
                             'order_content',
                             'delivery',
+                            'username',
                             'contacts'];
-
-
-	//public static function
-
-
-	public function getOrderById($order_id)
-	{
-
-	}
-
-	public function getOrdersByCustomerId($customer_id)
-	{
-
-	}
 }

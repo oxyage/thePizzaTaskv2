@@ -6,80 +6,56 @@ use Illuminate\Http\Request;
 //use Illuminate\Http\Response;
 use App\Cart;
 use App\Order;
+use Illuminate\Support\Facades\DB;
 
 
 class CartController extends Controller
 {
 
-    public function add($customer_id, Request $request)
+    public function add($customer_id, Request $request) // добавить 1 пиццу в корзину
     {
-
-        $find_pizza = Cart::all()
-            ->where('customer_id',$customer_id)
-            ->where('pizza_id', $request->pizza_id);
-
-        if($find_pizza->count() > 0)
-        {
-            $current_count = $find_pizza->first()->count;
-
-            $current_count += $request->count;
-
-            if(Cart::edit($customer_id, $request->get('pizza_id'), $current_count))
-                return response('', 202);
-            else
-                return response("Invalid data", 400);
-        }
-        else
-        {
-            if(Cart::edit($customer_id, $request->get('pizza_id'), 1))
-                return response('', 201);
-            else
-                return response("Invalid data", 400);
-
-
-
-        }
-
-
-
+        return Cart::firstOrCreate([
+                'customer_id' => $customer_id,
+                'pizza_id' => $request->get('pizza_id')
+            ]);
     }
 
-	public function edit($customer_id, Request $request)
+	public function update($customer_id, Request $request) //обновить пиццу в корзине
     {
-        //todo: validation request
 
-        if($request->get('count') <= 0)
+        $pizza = Cart::where('customer_id' , $customer_id)
+                    ->where('pizza_id', $request->get('pizza_id'))
+                    ->firstOrFail();
+
+        if($request->get('count') <= 0) // удаляем если новое значение 0
         {
-            Cart::removeFromCart($customer_id, $request->get('pizza_id'));
-            return response('', 204);
+            return response($pizza->delete(), 204);
         }
 
-        if(Cart::edit($customer_id, $request->get('pizza_id'), $request->get('count')))
-            return response('', 202);
-        else
-            return response("Invalid data", 400);
+
+
+        return response($pizza->update([
+            'count' => $request->get('count')
+        ]), 202);
+
     }
 
 
 
-	public function show($customer_id)
+	public function show($customer_id) // получить корзину
 	{
-	    $customer_cart = OrderController::getPizzasByCustomerCart($customer_id);
-        $summary = OrderController::getCostAndWeightByOrder($customer_cart);
+	    $cart =  Cart::show($customer_id);
 
-        return ["summary"=>$summary, "customer_cart"=>$customer_cart];
-                #return Cart::all()->where('customer_id', $customer_id);
+        if(!$cart)
+            return response('', 404);
+
+        return $cart;
 	}
+
 
     public function clear($customer_id)
     {
-        //todo: validation request
-        if(Cart::clear($customer_id))
-            return response('', 204);
-
-        else
-            return response('Invalid `customer_id`', 400);
-
+        return response(Cart::clear($customer_id),204);
     }
 
 }

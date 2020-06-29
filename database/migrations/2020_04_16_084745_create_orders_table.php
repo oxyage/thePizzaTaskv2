@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->json('order_content'); //from cart
             $table->integer('customer_id');
             $table->string('delivery');
+            $table->string('username');
             $table->string('contacts');
             $table->timestamps();
         });

@@ -16,8 +16,8 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->integer('pizza_id');
-            $table->integer('customer_id');		
-            $table->integer('count');						
+            $table->integer('customer_id');
+            $table->integer('count')->default(1);
             $table->timestamps();
         });
     }
