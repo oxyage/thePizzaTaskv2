@@ -11,7 +11,9 @@
 
     </head>
     <body>
-        <div id="example"></div>
-        <script type="application/javascript" src="../js/app.js"></script>
+        <div id="navigation"></div>
+        <div id="root"></div>
+
+        <script type="application/javascript" src="../js/index.js"></script>
     </body>
 </html>

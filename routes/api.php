@@ -10,7 +10,7 @@ Route::get('/about', function () {
 
 
 //Route::get('/customers', "CustomerController@all");
-//Route::post('/customer', "CustomerController@add");
+Route::post('/customer', "CustomerController@add");
 
 
 // Pizza

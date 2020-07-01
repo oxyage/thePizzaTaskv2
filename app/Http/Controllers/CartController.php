@@ -47,7 +47,7 @@ class CartController extends Controller
 	    $cart =  Cart::show($customer_id);
 
         if(!$cart)
-            return response('', 404);
+            return response([], 200);
 
         return $cart;
 	}
