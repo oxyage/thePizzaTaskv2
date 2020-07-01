@@ -9,7 +9,7 @@ import {
 import axios from 'axios'
 import Container from "@material-ui/core/Container";
 
-import {Button, Spinner, Form, Table} from "react-bootstrap"
+import {Button, Spinner, Form, Table, Alert} from "react-bootstrap"
 
 import AppNavigationComponent from "./components/AppNavigationComponent";
 import PizzasListComponent from "./components/home/PizzasListComponent";
@@ -31,10 +31,19 @@ class App extends Component {
         super(props);
         this.state = {
             userId: null,
-            loading: true,
             Pizzas: [],
+            pizzasLoading: true,
             Cart: [],
+            cartLoading: true,
             Orders: [],
+            orderLoading: true,
+            makeOrder: false,
+            orderData: {
+                name: '',
+                surname: '',
+                delivery: '',
+                contacts: ''
+            },
             USD: localStorage.getItem('EUR') !== 'true',
         };
 
@@ -42,6 +51,8 @@ class App extends Component {
         this.getCurrency = this.getCurrency.bind(this);
         this.changeCountPizza = this.changeCountPizza.bind(this);
         this.changeOrderedPizza = this.changeOrderedPizza.bind(this);
+        this.makeOrder = this.makeOrder.bind(this);
+        this.updateOrderData = this.updateOrderData.bind(this);
     }
 
 
@@ -239,13 +250,65 @@ class App extends Component {
         });
     }
 
+    makeOrder(orderData)
+    {
+        this.setState({
+            makeOrder: true
+        });
+
+
+        axios.post('/api/order/' + this.state.userId,{
+            delivery: this.state.orderData.delivery,
+            contacts: this.state.orderData.contacts,
+            username: this.state.orderData.name + ' ' + this.state.orderData.surname
+        })
+            .then(response => {
+
+
+                  Promise.all([
+                      this.loadOrders(),
+                      this.loadCart()
+                  ]).then(() => {
+
+
+
+
+                      this.setState({
+                          makeOrder: false,
+                          Pizzas: this.state.Pizzas.map(pizza => {
+                              pizza.ordered = false;
+                              pizza.count = 1;
+                              return pizza;
+                          })
+                      });
+
+                  });
+
+
+
+
+            });
+
+        console.log('make new order');
+
+    }
+
+    updateOrderData(newData)
+    {
+
+        this.setState({
+            makeOrder: false,
+            orderData: {...this.state.orderData, ...newData}
+        })
+    }
+
 
     loadPizzas(){
         return axios.get('/api/pizzas')
             .then(response => {
             this.setState({
                 Pizzas: response.data,
-                loading: false
+                pizzasLoading: false
             }, function(){
 
 
@@ -264,7 +327,8 @@ class App extends Component {
             .then(response => {
 
             this.setState({
-                Orders: response.data
+                Orders: response.data,
+                orderLoading: false
             }, function(){
 
             });
@@ -304,6 +368,7 @@ class App extends Component {
 
                 this.setState({
                     Cart: Cart,
+                    cartLoading: false,
                     Pizzas: Pizzas,
                     });
 
@@ -327,6 +392,12 @@ class App extends Component {
 
                         <Route exact path="/">
                             <Container maxWidth="lg" >
+
+                                {
+                                    this.state.pizzasLoading &&  <Spinner animation="border" variant="secondary"/>
+                                }
+
+
                                 <PizzasListComponent
                                     Pizzas={this.state.Pizzas}
                                     currency={this.getCurrency()}
@@ -338,24 +409,68 @@ class App extends Component {
 
                         <Route path="/orders">
                             <Container maxWidth="lg" >
-                               <OrderListComponent Orders={this.state.Orders} currency={this.getCurrency()}/>
+
+
+                                {
+                                    this.state.orderLoading &&  <Spinner animation="border" variant="secondary"/>
+                                }
+                                {
+                                    this.state.Orders.length < 1 && !this.state.orderLoading &&  <Alert variant={'info'}>
+                                        Your order history is empty
+                                    </Alert>
+                                }
+
+                                {
+                                    this.state.Orders.length > 0 && !this.state.orderLoading &&  <OrderListComponent
+                                        Orders={this.state.Orders}
+                                        currency={this.getCurrency()}
+                                    />
+                                }
+
+
                             </Container>
                         </Route>
 
                         <Route path="/cart">
                             <Container maxWidth="lg" >
-                                <Cart
-                                    Cart={this.state.Cart}
-                                    currency={this.getCurrency()}
-                                    changeCurrency={this.changeCurrency}
-                                    USD={this.state.USD}
-                                    changeCountPizza={this.changeCountPizza}
-                                    changeOrderedPizza={this.changeOrderedPizza}
-                                />
 
-                                <Button variant="info" >Get order</Button>
+                                {
 
-                                <FormOrder/>
+                                    this.state.makeOrder && <Alert variant={'success'}>
+                                        Your order is accepted
+                                    </Alert>
+                                }
+
+
+                                {
+                                    this.state.Cart.length < 1 && !this.state.cartLoading && !this.state.makeOrder && <Alert variant={'info'}>
+                                        Your cart is empty
+                                    </Alert>
+                                }
+
+                                {
+                                    this.state.cartLoading &&  <Spinner animation="border" variant="secondary"/>
+                                }
+
+                                {
+                                    this.state.Cart.length > 0 && !this.state.makeOrder &&  <Cart
+                                        Cart={this.state.Cart}
+                                        currency={this.getCurrency()}
+                                        changeCurrency={this.changeCurrency}
+                                        USD={this.state.USD}
+                                        changeCountPizza={this.changeCountPizza}
+                                        changeOrderedPizza={this.changeOrderedPizza}
+
+                                    />
+                                }
+                                {
+                                    this.state.Cart.length > 0 && !this.state.makeOrder &&
+                                    <FormOrder
+                                        makeOrder={this.makeOrder}
+                                        updateOrderData={this.updateOrderData}
+                                        orderData={this.state.orderData}
+                                    />
+                                }
 
                             </Container>
                         </Route>
