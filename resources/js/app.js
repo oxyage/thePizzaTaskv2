@@ -30,7 +30,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: null,
+            userId: +localStorage.getItem('userId'),
             Pizzas: [],
             pizzasLoading: true,
             Cart: [],
@@ -58,7 +58,7 @@ class App extends Component {
 
     componentDidMount(){
 
-        const userId = localStorage.getItem('userId');
+        const userId = +localStorage.getItem('userId');
 
         if(!userId)
         {
@@ -72,6 +72,11 @@ class App extends Component {
                 })
                 .then(function (response) {
                     console.log("Welcome, new user", response.data.name);
+                    this.setState({
+                        userId: response.data.name
+                    });
+
+
                 })
                 .catch(function (error) {
                     console.warn("User haven't created", error);
@@ -83,7 +88,7 @@ class App extends Component {
         }
 
         this.setState({
-            userId: userId
+            userId: +localStorage.getItem('userId')
         }, function(){
 
             Promise
@@ -93,11 +98,10 @@ class App extends Component {
                     this.loadOrders(),
                 ])
                 .then(() => {
-                //console.log('all ready');
-                    //todo: зачем я это вставлял?
                     if(!this.state.USD)
                         this.changeCurrency(!this.state.USD);
-            });
+                });
+
 
 
 
