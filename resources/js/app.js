@@ -94,7 +94,6 @@ class App extends Component {
             Promise
                 .all([
                     this.loadPizzas(),
-                    this.loadCart(),
                     this.loadOrders(),
                 ])
                 .then(() => {
@@ -315,7 +314,7 @@ class App extends Component {
                 pizzasLoading: false
             }, function(){
 
-
+                this.loadCart();
 
             });
         })
