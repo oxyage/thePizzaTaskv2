@@ -31,6 +31,7 @@ class App extends Component {
         super(props);
         this.state = {
             userId: +localStorage.getItem('userId'),
+            deliveryCost: 10,
             Pizzas: [],
             pizzasLoading: true,
             Cart: [],
@@ -243,6 +244,9 @@ class App extends Component {
         });
 
 
+        const deliveryCost = (isEuro) ? +(this.state.deliveryCost * EURtoUSD).toFixed(2) : +(this.state.deliveryCost / EURtoUSD).toFixed(2);
+
+
         localStorage.setItem('EUR', isEuro);
 
         this.setState({
@@ -250,6 +254,7 @@ class App extends Component {
             Cart,
             Pizzas,
             USD: !isEuro,
+            deliveryCost: deliveryCost
         });
     }
 
@@ -463,6 +468,7 @@ class App extends Component {
                                         USD={this.state.USD}
                                         changeCountPizza={this.changeCountPizza}
                                         changeOrderedPizza={this.changeOrderedPizza}
+                                        deliveryCost={this.state.deliveryCost}
 
                                     />
                                 }

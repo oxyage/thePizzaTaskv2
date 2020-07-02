@@ -44,12 +44,16 @@ export default function Cart(props) {
         return sum;
     }, 0).toFixed(2);
 
+
+
     const sumCount = Cart.reduce((sum, item) => {
         sum += item.count;
         return sum;
     }, 0).toFixed(0);
 
-    const sumCost = Cart.reduce((sum, item) => {
+
+
+    const sumCost = +props.deliveryCost + +Cart.reduce((sum, item) => {
         sum += item.cost * item.count;
         return sum;
     }, 0).toFixed(2);
@@ -118,6 +122,12 @@ export default function Cart(props) {
                 </tr>)
             })
         }
+
+        <tr className="bg-light text-black">
+            <th scope="row" colSpan="4">Delivery</th>
+            <td>{props.currency + ' ' + props.deliveryCost}</td>
+            <td></td>
+        </tr>
 
         <tr className="bg-light text-black">
             <th scope="row" colSpan="3" >Total</th>
